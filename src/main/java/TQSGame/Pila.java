@@ -22,8 +22,9 @@ public class Pila {
 	public boolean cartaValida(Carta carta) {
 		if((peekCard() == null) && (carta.getNum() == 1) && (carta.getPalo() == this.palo))
 			return true;
-		
-		return ((carta.getPalo() == this.palo) && carta.getNum() == peekCard().getNum() + 1);
+		if(peekCard() != null)
+			return ((carta.getPalo() == this.palo) && carta.getNum() == peekCard().getNum() + 1);
+		return false;
 	}
 	
 	public boolean pilaLlena() { return cartas.size() == 12; }

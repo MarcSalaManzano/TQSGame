@@ -36,5 +36,18 @@ public class PilaTest {
 		assertEquals(pilaOro.peekCard().getPalo(), "Oro"); //valor fuera de límites: no hay más de 12 cartas por palo.
 		
 	}
+	
+	@Test
+	public void testCartaValida() { //Test extra para más coverage de pila.cartaValida
+		Pila pilaEspadas = new Pila("Espada");
+		
+		assertTrue(pilaEspadas.cartaValida(new Carta("Espada", 1)));
+		assertFalse(pilaEspadas.cartaValida(new Carta("Espada", 2)));
+		assertFalse(pilaEspadas.cartaValida(new Carta("Oro", 1)));
+		assertFalse(pilaEspadas.cartaValida(new Carta("Oro", 2)));
+		assertFalse(pilaEspadas.cartaValida(new Carta("Espdas", 1)));
+		
+	}
+
 
 }
