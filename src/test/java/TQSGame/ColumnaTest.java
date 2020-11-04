@@ -29,7 +29,7 @@ public class ColumnaTest {
 		assertEquals(0, columna.getNumCartasReveladas());
 		assertEquals(2, columna.getNumCartasTotal());		
 		
-		columna.addCard(new Carta("Basto", 10));
+		columna.addCard(new Carta("Basto", 11));
 		assertEquals(1, columna.getNumCartasReveladas());
 		assertEquals(3, columna.getNumCartasTotal());		
 		
@@ -55,9 +55,10 @@ public class ColumnaTest {
 		for(int i = 12; i > 6; i--) 
 			columna.addCartaOculta(new Carta("Oro", i));
 		
-		for(int i = 6; i > 0; i--) 
+		for(int i = 6; i > 1; i--) 
 			columna.addCartaOculta(new Carta("Espada", i));
 		
+		columna.addCard(new Carta("Basto", 1));
 		
 		Carta carta = columna.pullCard();
 		assertEquals("Espada", carta.getPalo());
@@ -94,11 +95,45 @@ public class ColumnaTest {
 	
 	@Test
 	public void testPullColumna() {
+		Columna col = new Columna();
+		
+		assertNull(col.pullColumna(2)); //columna vacia
+		
+		col.addCartaOculta(new Carta("Oro", 12));
+		col.addCartaOculta(new Carta("Oro", 11));
+		col.addCard(new Carta("Espada", 12));
+		col.addCard(new Carta("Basto", 11));
+		assertNull(col.pullColumna(1)); //No se puede sacar una carta con pullCol
+		assertNull(col.pullColumna(3)); //No se puede sacar de una carta oculta
+		
+		Columna col2 = new Columna();
+		col2.addCard(new Carta("Espada", 12));
+		col2.addCard(new Carta("Basto", 11));
+		Columna newCol = col.pullColumna(2);
+		
+		assertEquals(col2.pullCard().getNum(), newCol.pullCard().getNum());
+		assertEquals(col2.pullCard().getNum(), newCol.pullCard().getNum());
+		
 		
 	}
 	
 	@Test
 	public void testAddColumna() {
 		
+		Columna col = new Columna();
+		Columna col2 = new Columna();
+		
+		col.addCartaOculta(new Carta("Copa", 12));
+		col.addCard(new Carta("Oro", 12));
+		
+		col2.addCard(new Carta("Basto", 11));
+		col2.addCard(new Carta("Espada", 10));
+		
+		col.addColumna(col2);
+		
+		assertEquals(col.pullCard().getPalo(), "Espada");
+		assertEquals(col.pullCard().getPalo(), "Basto");
+		assertEquals(col.pullCard().getPalo(), "Oro");
+		assertEquals(col.pullCard().getPalo(), "Copa");
 	}
 }
