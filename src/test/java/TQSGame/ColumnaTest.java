@@ -17,33 +17,33 @@ public class ColumnaTest {
 		assertEquals(0, columna.getNumCartasReveladas());
 		assertEquals(1, columna.getNumCartasTotal());
 			
-		columna.addCartaOculta(new Carta("Oro", 12));
-		assertEquals(0, columna.getNumCartasReveladas());
-		assertEquals(1, columna.getNumCartasTotal());		
-		
-		columna.addCartaOculta(new Carta("Basto", 12));
-		assertEquals(0, columna.getNumCartasReveladas());
-		assertEquals(1, columna.getNumCartasTotal());		
-		
-		columna.addCartaOculta(new Carta("Basto", 11));
+		columna.addCartaOculta(new Carta("Copa", 12));
 		assertEquals(0, columna.getNumCartasReveladas());
 		assertEquals(2, columna.getNumCartasTotal());		
 		
-		columna.addCard(new Carta("Basto", 11));
-		assertEquals(1, columna.getNumCartasReveladas());
+		columna.addCartaOculta(new Carta("Basto", 12));
+		assertEquals(0, columna.getNumCartasReveladas());
 		assertEquals(3, columna.getNumCartasTotal());		
 		
-		columna.addCartaOculta(new Carta("Basto", 10));
-		assertEquals(1, columna.getNumCartasReveladas());
-		assertEquals(3, columna.getNumCartasTotal());		
+		columna.addCartaOculta(new Carta("Basto", 11));
+		assertEquals(0, columna.getNumCartasReveladas());
+		assertEquals(4, columna.getNumCartasTotal());		
 		
-		columna.addCartaOculta(new Carta("Espada", 8));
+		columna.addCard(new Carta("Basto", 10));
 		assertEquals(1, columna.getNumCartasReveladas());
-		assertEquals(3, columna.getNumCartasTotal());		
+		assertEquals(5, columna.getNumCartasTotal());		
+		
+		columna.addCartaOculta(new Carta("Basto", 9));
+		assertEquals(1, columna.getNumCartasReveladas());
+		assertEquals(5, columna.getNumCartasTotal());		
+		
+		columna.addCard(new Carta("Espada", 7));
+		assertEquals(1, columna.getNumCartasReveladas());
+		assertEquals(5, columna.getNumCartasTotal());		
 		
 		columna.addCartaOculta(new Carta("Copa", 9));
 		assertEquals(2, columna.getNumCartasReveladas());
-		assertEquals(4, columna.getNumCartasTotal());		
+		assertEquals(6, columna.getNumCartasTotal());		
 		
 	}
 
@@ -101,19 +101,22 @@ public class ColumnaTest {
 		
 		col.addCartaOculta(new Carta("Oro", 12));
 		col.addCartaOculta(new Carta("Oro", 11));
+		
 		col.addCard(new Carta("Espada", 12));
 		col.addCard(new Carta("Basto", 11));
+		
 		assertNull(col.pullColumna(1)); //No se puede sacar una carta con pullCol
 		assertNull(col.pullColumna(3)); //No se puede sacar de una carta oculta
 		
 		Columna col2 = new Columna();
+		
 		col2.addCard(new Carta("Espada", 12));
 		col2.addCard(new Carta("Basto", 11));
+		
 		Columna newCol = col.pullColumna(2);
 		
 		assertEquals(col2.pullCard().getNum(), newCol.pullCard().getNum());
 		assertEquals(col2.pullCard().getNum(), newCol.pullCard().getNum());
-		
 		
 	}
 	
@@ -123,9 +126,9 @@ public class ColumnaTest {
 		Columna col = new Columna();
 		Columna col2 = new Columna();
 		
-		col.addCartaOculta(new Carta("Copa", 12));
-		col.addCard(new Carta("Oro", 12));
+		col.addCartaOculta(new Carta("Copa", 12)); //test sobre columna normal
 		
+		col.addCard(new Carta("Oro", 12));
 		col2.addCard(new Carta("Basto", 11));
 		col2.addCard(new Carta("Espada", 10));
 		
@@ -135,5 +138,11 @@ public class ColumnaTest {
 		assertEquals(col.pullCard().getPalo(), "Basto");
 		assertEquals(col.pullCard().getPalo(), "Oro");
 		assertEquals(col.pullCard().getPalo(), "Copa");
+		
+		col.addColumna(col2); //test sobre columna vacia
+
+		assertEquals(col.pullCard().getPalo(), "Espada");
+		assertEquals(col.pullCard().getPalo(), "Basto");
+		
 	}
 }
