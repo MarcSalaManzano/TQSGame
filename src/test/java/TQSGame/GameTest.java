@@ -102,12 +102,40 @@ public class GameTest { //Testea el MVC mandando señales con VistaMock al contro
 		Tablero tablero = new TableroMock();
 		Game game = new Game(tablero);
 		VistaMock vista = new VistaMock(game);
+
+		vista.mueveColumna(2, 1, 3);
+		Columna[] cols = vista.printColumnas();
+		assertEquals(2, cols[1].getNumCartasTotal());
 		
-		vista.mueveColumna(1, 2, 1);
-		vista.mueveCarta(0, 1);
-		vista.mueveColumna(0, 1, 3); //No podrá hacer esto ya que pide mas cartas de las que hay
+		vista.mueveColumna(2, 1, 2);
+		cols = vista.printColumnas();
+		assertEquals(2, cols[1].getNumCartasTotal());
+		assertEquals(1, cols[0].getNumCartasTotal());
 		
-		vista.printColumnas();
+		Columna col = new Columna();
+		
+		col.addCard(new Carta("Basto", 11));
+		col.addCard(new Carta("Basto", 10));
+		
+		tablero.setColumnas(1, col);
+		
+		vista.mueveColumna(2, 1, 2);
+		assertEquals(3, cols[0].getNumCartasTotal());
+		assertEquals(0, cols[1].getNumCartasTotal());
+		
+		col = new Columna();
+		
+		col.addCard(new Carta("Oro", 11));
+		tablero.setColumnas(2, col);
+		vista.mueveColumna(3, 0, 0);
+		cols = vista.printColumnas();
+		assertEquals(1, cols[2].getNumCartasTotal());
+		assertEquals(3, cols[0].getNumCartasTotal());
+		
+		vista.mueveColumna(3, 0, 1);
+		cols = vista.printColumnas();
+		assertEquals(0, cols[2].getNumCartasTotal());
+		assertEquals(4, cols[0].getNumCartasTotal());
 		
 		
 	}
