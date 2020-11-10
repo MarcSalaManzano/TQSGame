@@ -16,8 +16,10 @@ public class TableroMock implements Tablero{
 	RandomBaraja baraja = new RandomBaraja();
 	Pila pilaOro = new Pila("Oro");
 	Pila pilaBasto = new Pila("Basto");
-	Carta cartaFuera = baraja.pullCard();
-	Columna columnas[] = new Columna[3];
+	Carta cartaFuera = null;
+	Columna[] columnas = { new Columna(), new Columna(), new Columna() };
+	
+	public void setColumnas(int idCol, Columna col) { columnas[idCol] = col; }
 	
 	public void addAPila(Carta carta, String paloPila) {
 		switch(paloPila) {
@@ -25,7 +27,19 @@ public class TableroMock implements Tablero{
 		case "Basto": pilaBasto.addCard(carta);
 		}
 	}
-	
+	public void repartirCartas() {
+
+		for(int i = 1; i <= 3; i++) {
+			for(int j = 0; j < i; j++) {
+				sacaCarta();
+				if(j == (i - 1))
+					columnas[i-1].addCard(cartaFuera);
+				else
+					columnas[i-1].addCartaOculta(cartaFuera);
+			}
+		}
+		sacaCarta();
+	}
 	public boolean getBaraja() { return true; }
 	
 	public Pila[] getPilas() { Pila[] pila = {pilaOro, pilaBasto}; return pila;}
@@ -33,7 +47,7 @@ public class TableroMock implements Tablero{
 	public Columna[] getColumnas() { return columnas; }
 	
 	public Carta getCartaFuera() { return cartaFuera; }
-	
+	public void setCartaNull() { cartaFuera = null;}
 	public void sacaCarta() { cartaFuera = baraja.pullCard(); }
 	
 	public void moverAColumna(int columnaOrigen, int columnaDestino, int cartasAMover) {
@@ -46,5 +60,7 @@ public class TableroMock implements Tablero{
 	
 	public Carta sacaCartaColumna(int columna) { return columnas[columna].pullCard(); }
 	
-	public void addCartaColumna(int columna, Carta carta) {columnas[columna].addCard(carta); }
+	public void addCartaColumna(int columna, Carta carta) { columnas[columna].addCard(carta); }
+
+	public void setCartaFuera(Carta cartaMovida) { cartaFuera = cartaMovida;}
 }

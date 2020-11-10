@@ -18,19 +18,13 @@ public class VistaMock {
 		this.game = game;
 	}
 	
-	public void mostraTablero() {
-		this.printBaraja();
-		this.printCartaFuera();
-		this.printColumnas();
-		this.printPilas();
-	}
-	
 	public boolean printBaraja() { return game.getBarajaStatus(); } //En este mock usare los print para devolver el estado del Game para los tests
 	public Carta printCartaFuera() { return game.getCartaFuera(); }
 	public Columna[] printColumnas() { return game.getColumnas(); }
 	public Pila[] printPilas() { return game.getPilas(); }
 	
-	public void sacaCarta() { game.getCartaFuera(); }
+	public void sacaCarta() { game.sacaCarta(); }
+	public Carta cartaFuera() { return game.getCartaFuera(); }
 	public void mueveCarta(int idOrigen, int idDestino) { game.setCartaMovida(idOrigen); game.addCartaDestino(idDestino); } //el ID identificará de donde se coge la carta y a donde se mueve: 0 es de la carta de la baraja, 1-7 seran las columnas, 8-11 seran las pilas.
 	public void mueveColumna(int colOrigen, int colDestino, int nCartas) { game.mueveColumna(colOrigen, colDestino, nCartas); }
 	

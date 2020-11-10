@@ -13,5 +13,9 @@ public interface Tablero { //De momento es una interficie para poder implementar
 	public Columna[] getColumnas();
 	public void addCartaColumna(int idDestino, Carta cartaMovida);
 	public boolean getBaraja();
+	public void repartirCartas();
+	public void setCartaNull();
+	public void setColumnas(int idCol, Columna col);
+	public void setCartaFuera(Carta cartaMovida);
 	
 }

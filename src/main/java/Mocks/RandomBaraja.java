@@ -45,29 +45,32 @@ public class RandomBaraja {
 	}
 	
 	private void creaBaraja() {
-		for(int i = 0; i < 5; i++) {
-			cartas.add(new Carta("Oro", i+1));
+		for(int i = 12; i > 10; i--) {
+			cartas.add(new Carta("Basto", i));
 		}
-		for(int i = 0; i < 3; i++) {
-			cartas.add(new Carta("Basto", i+1));
+		for(int i = 12; i > 8; i--) {
+			cartas.add(new Carta("Oro", i));
 		}
+		for(int i = 10; i > 5; i--) {
+			cartas.add(new Carta("Basto", i));
+		}
+		for(int i = 8; i > 6; i--) {
+			cartas.add(new Carta("Oro", i));
+		}
+		for(int i = 5; i > 3; i--) {
+			cartas.add(new Carta("Basto", i));
+		}
+		
 		cartas.add(new Carta("Oro", 6));
+		
+		for(int i = 3; i > 0; i--) {
+			cartas.add(new Carta("Basto", i));
+		}
+		for(int i = 5; i > 0; i--) {
+			cartas.add(new Carta("Oro", i));
+		}
+		
 
-		for(int i = 3; i < 5; i++) {
-			cartas.add(new Carta("Basto", i+1));
-		}
 
-		for(int i = 6; i < 8; i++) {
-			cartas.add(new Carta("Oro", i+1));
-		}
-		for(int i = 5; i < 10; i++) {
-			cartas.add(new Carta("Basto", i+1));
-		}
-		for(int i = 8; i < 12; i++) {
-			cartas.add(new Carta("Oro", i+1));
-		}
-		for(int i = 10; i < 12; i++) {
-			cartas.add(new Carta("Basto", i+1));
-		}
 	}
 }
