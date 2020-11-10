@@ -127,15 +127,25 @@ public class GameTest { //Testea el MVC mandando señales con VistaMock al contro
 		
 		col.addCard(new Carta("Oro", 11));
 		tablero.setColumnas(2, col);
-		vista.mueveColumna(3, 0, 0);
+		vista.mueveColumna(3, 1, 0);
 		cols = vista.printColumnas();
 		assertEquals(1, cols[2].getNumCartasTotal());
 		assertEquals(3, cols[0].getNumCartasTotal());
 		
 		vista.mueveColumna(3, 0, 1);
 		cols = vista.printColumnas();
+		assertEquals(1, cols[2].getNumCartasTotal());
+		assertEquals(3, cols[0].getNumCartasTotal());
+		
+		col = new Columna();
+		col.addCard(new Carta("Oro", 9));
+		tablero.setColumnas(2, col);
+		
+		vista.mueveColumna(3, 1, 1);
+		cols = vista.printColumnas();
 		assertEquals(0, cols[2].getNumCartasTotal());
 		assertEquals(4, cols[0].getNumCartasTotal());
+		
 		
 		
 	}

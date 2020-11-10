@@ -51,10 +51,11 @@ public class TableroMock implements Tablero{
 	public void sacaCarta() { cartaFuera = baraja.pullCard(); }
 	
 	public void moverAColumna(int columnaOrigen, int columnaDestino, int cartasAMover) {
+		if((columnaOrigen >= 0 && columnaOrigen <= 7) && (columnaDestino >= 0 && columnaOrigen <= 7))
 		if(cartasAMover == 1) {
 			columnas[columnaDestino].addCard(columnas[columnaOrigen].pullCard());
 		}
-		else
+		else if( cartasAMover > 1 && cartasAMover <= columnas[columnaOrigen].getNumCartasReveladas() ) 
 			columnas[columnaDestino].addColumna(columnas[columnaOrigen].pullColumna(cartasAMover));
 	} //Si cartasAMover == 1, se mueve 1 carta sola de un sitio a otro.
 	

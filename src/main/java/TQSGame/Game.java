@@ -66,7 +66,7 @@ public class Game {
 		}
 	}
 	
-	public void mueveColumna(int colOrigen, int colDestino, int nCartas) {  }
+	public void mueveColumna(int colOrigen, int colDestino, int nCartas) { tablero.moverAColumna(colOrigen-1, colDestino-1, nCartas); }
 
 	public boolean getBarajaStatus() { return tablero.getBaraja(); }
 	
