@@ -25,14 +25,14 @@ public class VistaMock {
 		this.printPilas();
 	}
 	
-	public Baraja printBaraja() { return Game.getBarajaStatus(); } //En este mock usare los print para devolver el estado del Game para los tests
-	public Carta printCartaFuera() { return Game.getCartaFuera(); }
-	public Columna[] printColumnas() { return Game.getColumnas(); }
-	public Pila[] printPilas() { return Game.getPilas(); }
+	public boolean printBaraja() { return game.getBarajaStatus(); } //En este mock usare los print para devolver el estado del Game para los tests
+	public Carta printCartaFuera() { return game.getCartaFuera(); }
+	public Columna[] printColumnas() { return game.getColumnas(); }
+	public Pila[] printPilas() { return game.getPilas(); }
 	
-	public void sacaCarta() { Game.sacaCartaFuera(); }
-	public void mueveCarta(int idOrigen, int idDestino) { Game.setCartaMovida(idOrigen); Game.addCartaDestino(idDestino); } //el ID identificará de donde se coge la carta y a donde se mueve: 0 es de la carta de la baraja, 1-7 seran las columnas, 8-11 seran las pilas.
-	public void mueveColumna(int colOrigen, int colDestino, int nCartas) { Game.mueveColumna(colOrigen, colDestino, nCartas); }
+	public void sacaCarta() { game.getCartaFuera(); }
+	public void mueveCarta(int idOrigen, int idDestino) { game.setCartaMovida(idOrigen); game.addCartaDestino(idDestino); } //el ID identificará de donde se coge la carta y a donde se mueve: 0 es de la carta de la baraja, 1-7 seran las columnas, 8-11 seran las pilas.
+	public void mueveColumna(int colOrigen, int colDestino, int nCartas) { game.mueveColumna(colOrigen, colDestino, nCartas); }
 	
 	
 }

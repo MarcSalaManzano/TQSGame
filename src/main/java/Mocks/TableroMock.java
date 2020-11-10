@@ -26,6 +26,8 @@ public class TableroMock implements Tablero{
 		}
 	}
 	
+	public boolean getBaraja() { return true; }
+	
 	public Pila[] getPilas() { Pila[] pila = {pilaOro, pilaBasto}; return pila;}
 	
 	public Columna[] getColumnas() { return columnas; }
@@ -43,4 +45,6 @@ public class TableroMock implements Tablero{
 	} //Si cartasAMover == 1, se mueve 1 carta sola de un sitio a otro.
 	
 	public Carta sacaCartaColumna(int columna) { return columnas[columna].pullCard(); }
+	
+	public void addCartaColumna(int columna, Carta carta) {columnas[columna].addCard(carta); }
 }
