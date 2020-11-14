@@ -52,7 +52,7 @@ public class Tablero {
 	public boolean getBaraja() { return baraja.getNumCartas() > 0; }	
 	
 	public void repartirCartas() {
-		for(int i = 1; i <= 3; i++) {
+		for(int i = 1; i <= columnas.length; i++) {
 			for(int j = 0; j < i; j++) {
 				sacaCarta();
 				if(j == (i - 1))

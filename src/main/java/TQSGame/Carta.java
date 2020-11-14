@@ -1,6 +1,6 @@
 package TQSGame;
 
-public class Carta implements Comparable<Carta>{
+public class Carta {
 	private String palo;
 	private int num;
 	
@@ -12,14 +12,11 @@ public class Carta implements Comparable<Carta>{
 	//Getters
 	public String getPalo() { return palo; }
 	public int getNum() { return num; }
-
-	@Override
-	public int compareTo(Carta card) {
-
-		if(this.num > card.num) return 0;
-		return 1;
-	}
 	
+	@Override
+	public String toString() {
+		return palo.substring(0, 1) + num;
+	}
 	
 	
 }

@@ -58,6 +58,15 @@ public class Columna {
 	}
 	
 	public Carta peekCard() { return cartas.get(cartas.size()-1); }
+	public String peekCard(int i) {
+		if(i >= 0 && i < cartas.size()) {
+			if(i >= (numCartasTotal - numCartasReveladas)) {
+				return cartas.get(i).toString();
+			}
+			return "*";
+		}
+		return " ";
+	}
 	
 	public Carta pullCard() {
 		numCartasTotal--;

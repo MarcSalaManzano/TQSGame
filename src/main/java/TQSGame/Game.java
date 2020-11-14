@@ -5,6 +5,10 @@ public class Game {
 	private Carta cartaMovida = null;
 	private int origenCartaMovida;
 	
+	public Pila getPila(int i) { return tablero.getPilas()[i]; }
+	
+	public Columna getColumna(int i) { return tablero.getColumnas()[i]; }
+	
 	public Game() { this.tablero = new Tablero(); tablero.repartirCartas(); }
 	
 	public void setCartaMovida(int origen) { 
@@ -69,8 +73,30 @@ public class Game {
 
 	public boolean getBarajaStatus() { return tablero.getBaraja(); }
 	
-	public boolean finished() {return tablero.pilasLlenas();}
+	public boolean finished() { return tablero.pilasLlenas(); }
+
+	public int getColsMaxCartas() {
+		Columna[] cols = tablero.getColumnas();
+		int maxCartas = cols[0].getNumCartasTotal();
+		
+		for(int i = 1; i < cols.length; i++)
+			if(maxCartas < cols[i].getNumCartasTotal())
+				maxCartas = cols[i].getNumCartasTotal();
+			
+			
+		return maxCartas;
+	}
+
+	public void processInput(int[] args) {
+		switch(args.length) {
+		case 1: if( args[0] == 1) sacaCarta();
+				break;
+		case 2: setCartaMovida(args[0]); addCartaDestino(args[1]);
+				break;
+		case 3: mueveColumna(args[0], args[1], args[2]);
+		}
+		
+	}
 	
-	//TODO: comprobar cuando se termina la partida.
 	
 }
