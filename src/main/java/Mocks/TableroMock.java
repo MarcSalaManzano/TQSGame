@@ -8,11 +8,11 @@ import TQSGame.*;
  *
  * Clase que simula un tablero para testear el controlador Game
  * Contiene una pequeña baraja de 24 cartas
- * Puede simular el coger una carta de la baraja, guardar en una pila y 
+ * Puede coger una carta de la baraja, guardar en una pila y 
  * mover cartas/columnas entre ellas
  */
 
-public class TableroMock implements Tablero{
+public class TableroMock /*implements Tablero*/{ //Es
 	RandomBaraja baraja = new RandomBaraja();
 	Pila pilaOro = new Pila("Oro");
 	Pila pilaBasto = new Pila("Basto");
@@ -47,7 +47,7 @@ public class TableroMock implements Tablero{
 	public Columna[] getColumnas() { return columnas; }
 	
 	public Carta getCartaFuera() { return cartaFuera; }
-	public void setCartaNull() { cartaFuera = null;}
+	public void setCartaNull() { cartaFuera = null; }
 	public void sacaCarta() { cartaFuera = baraja.pullCard(); }
 	
 	public void moverAColumna(int columnaOrigen, int columnaDestino, int cartasAMover) {

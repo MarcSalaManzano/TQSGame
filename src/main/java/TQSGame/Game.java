@@ -5,7 +5,7 @@ public class Game {
 	private Carta cartaMovida = null;
 	private int origenCartaMovida;
 	
-	public Game(Tablero tablero) { this.tablero = tablero; tablero.repartirCartas(); }
+	public Game() { this.tablero = new Tablero(); tablero.repartirCartas(); }
 	
 	public void setCartaMovida(int origen) { 
 		if(origen == 0) {
@@ -19,7 +19,6 @@ public class Game {
 		}
 	}
 	public Pila[] getPilas() { return tablero.getPilas(); }
-
 
 	public Carta getCartaFuera() { return tablero.getCartaFuera(); }
 	
@@ -69,6 +68,8 @@ public class Game {
 	public void mueveColumna(int colOrigen, int colDestino, int nCartas) { tablero.moverAColumna(colOrigen-1, colDestino-1, nCartas); }
 
 	public boolean getBarajaStatus() { return tablero.getBaraja(); }
+	
+	public boolean finished() {return tablero.pilasLlenas();}
 	
 	//TODO: comprobar cuando se termina la partida.
 	
