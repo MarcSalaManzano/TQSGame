@@ -12,6 +12,8 @@ public class PilaTest {
 		
 		assertEquals(pilaOro.peekCard(), null); //valor frontera: 0 cartas en la pila
 		
+		assertEquals(pilaOro.getPalo(), "O");
+		
 		pilaOro.addCard(new Carta("Oro", 1));
 		assertEquals(pilaOro.peekCard().getNum(), 1);
 		assertEquals(pilaOro.peekCard().getPalo(), "Oro");

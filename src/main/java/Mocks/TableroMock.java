@@ -18,8 +18,10 @@ public class TableroMock implements ITablero{ //Es
 	Pila pilaBasto = new Pila("Basto");
 	Carta cartaFuera = null;
 	Columna[] columnas = { new Columna(), new Columna(), new Columna() };
+	Pila pilaCopas = new Pila("Copa");
+	Pila pilaEspadas = new Pila("Espada");
 	
-	public TableroMock() { repartirCartas(); }
+	public TableroMock() {  }
 	
 	public void setColumnas(int idCol, Columna col) { columnas[idCol] = col; }
 	
@@ -44,7 +46,7 @@ public class TableroMock implements ITablero{ //Es
 	}
 	public boolean getBaraja() { return true; }
 	
-	public Pila[] getPilas() { Pila[] pila = {pilaOro, pilaBasto}; return pila;}
+	public Pila[] getPilas() { Pila[] pila = {pilaOro, pilaBasto, pilaCopas, pilaEspadas}; return pila;}
 	
 	public Columna[] getColumnas() { return columnas; }
 	
@@ -53,7 +55,7 @@ public class TableroMock implements ITablero{ //Es
 	public void sacaCarta() { cartaFuera = baraja.pullCard(); }
 	
 	public void moverAColumna(int columnaOrigen, int columnaDestino, int cartasAMover) {
-		if((columnaOrigen >= 0 && columnaOrigen <= 7) && (columnaDestino >= 0 && columnaOrigen <= 7))
+		if((columnaOrigen >= 0 && columnaOrigen <= 3) && (columnaDestino >= 0 && columnaOrigen <= 3))
 		if(cartasAMover == 1) {
 			columnas[columnaDestino].addCard(columnas[columnaOrigen].pullCard());
 		}
@@ -61,11 +63,11 @@ public class TableroMock implements ITablero{ //Es
 			columnas[columnaDestino].addColumna(columnas[columnaOrigen].pullColumna(cartasAMover));
 	} //Si cartasAMover == 1, se mueve 1 carta sola de un sitio a otro.
 	
-	public Carta sacaCartaColumna(int columna) { return columnas[columna].pullCard(); }
+	public Carta sacaCartaColumna(int columna) { return columnas[columna % 3].pullCard(); }
 	
 	public void addCartaColumna(int columna, Carta carta) { columnas[columna].addCard(carta); }
 
-	public void setCartaFuera(Carta cartaMovida) { cartaFuera = cartaMovida;}
+	public void setCartaFuera(Carta cartaMovida) { cartaFuera = cartaMovida; }
 
 	@Override
 	public void reAddCarta(int i, Carta cartaMovida) {

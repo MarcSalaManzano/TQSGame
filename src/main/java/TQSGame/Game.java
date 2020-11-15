@@ -5,11 +5,7 @@ public class Game {
 	private Carta cartaMovida = null;
 	private int origenCartaMovida;
 	
-	public Pila getPila(int i) { return tablero.getPilas()[i]; }
-	
-	public Columna getColumna(int i) { return tablero.getColumnas()[i]; }
-	
-	public Game(ITablero tab) { tablero = tab; }
+	public Game(ITablero tab) { tablero = tab; tablero.repartirCartas(); }
 	
 	public Game() { this.tablero = new Tablero(); tablero.repartirCartas(); }
 	
@@ -42,9 +38,13 @@ public class Game {
 				else if(idDestino >= 8 && idDestino <= 11) {
 					switch(idDestino) {
 					case 8: tablero.addAPila(cartaMovida,  "Oro");
+						break;
 					case 9: tablero.addAPila(cartaMovida,  "Copa");
+						break;
 					case 10: tablero.addAPila(cartaMovida,  "Espada");
+						break;
 					case 11: tablero.addAPila(cartaMovida,  "Basto");
+						break;
 					}
 					cartaMovida = null;
 				}
@@ -78,10 +78,12 @@ public class Game {
 			}
 	}
 	
-	public void mueveColumna(int colOrigen, int colDestino, int nCartas) { 
-		if(!tablero.getColumnas()[colOrigen-1].isVacia())
-		
-			tablero.moverAColumna(colOrigen-1, colDestino-1, nCartas); 
+	public void mueveColumna(int colOrigen, int colDestino, int nCartas) {
+
+		if(colOrigen >0 && colDestino > 0 && nCartas > 0)
+			if(!tablero.getColumnas()[colOrigen-1].isVacia())
+			
+				tablero.moverAColumna(colOrigen-1, colDestino-1, nCartas); 
 		}
 
 	public boolean getBarajaStatus() { return tablero.getBaraja(); }
@@ -96,7 +98,6 @@ public class Game {
 			if(maxCartas < cols[i].getNumCartasTotal())
 				maxCartas = cols[i].getNumCartasTotal();
 			
-			
 		return maxCartas;
 	}
 
@@ -107,6 +108,7 @@ public class Game {
 		case 2: setCartaMovida(args[0]); addCartaDestino(args[1]);
 				break;
 		case 3: mueveColumna(args[0], args[1], args[2]);
+				break;
 		}
 		
 	}

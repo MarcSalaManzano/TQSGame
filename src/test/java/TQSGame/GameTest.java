@@ -21,6 +21,8 @@ public class GameTest { //Testea el MVC mandando señales con VistaMock al contro
 		Game game = new Game(tablero);
 		VistaMock vista = new VistaMock(game);
 		
+		vista.mueveCarta(0, 8);
+		
 		vista.sacaCarta();
 		vista.sacaCarta();
 		vista.sacaCarta();
@@ -75,6 +77,7 @@ public class GameTest { //Testea el MVC mandando señales con VistaMock al contro
 		tablero.setColumnas(1,  col);
 		
 		vista.mueveCarta(2,  8);
+		vista.mueveCarta(8, 2);
 		vista.mueveCarta(2,  0);
 
 		cols = vista.printColumnas();
@@ -101,6 +104,14 @@ public class GameTest { //Testea el MVC mandando señales con VistaMock al contro
 		assertEquals("Oro", pilas[0].peekCard().getPalo());
 		assertEquals(2, pilas[0].peekCard().getNum());
 		
+		col = new Columna();
+		tablero.setColumnas(0, col);
+		vista.mueveCarta(0, 8);
+		vista.sacaCarta();
+		vista.mueveCarta(0, 1);
+		
+		cols = vista.printColumnas();
+		assertEquals(1, cols[0].getNumCartasTotal());
 		
 	}
 	@Test
@@ -152,6 +163,59 @@ public class GameTest { //Testea el MVC mandando señales con VistaMock al contro
 		assertEquals(0, cols[2].getNumCartasTotal());
 		assertEquals(4, cols[0].getNumCartasTotal());
 		
+		vista.mueveCarta(8, 2);
+		
 	}
 
+	@Test
+	public void testCoverage() { //Este test prueba que el programa no pete por algun lado ejecutando todas las lineas de codigo posibles
+		ITablero tablero = new TableroMock();
+		Game game = new Game();
+		game = new Game(tablero);
+		VistaMock vista = new VistaMock(game);
+
+		Columna col = new Columna();
+		tablero.setColumnas(2, col);
+		
+		vista.mueveColumna(3, 1, 2); //intenta mover una columna vacia.
+		
+		vista.mueveCarta(-1, 8);
+		vista.mueveCarta(1, -1);
+		
+		vista.mueveColumna(-1, 22, 2); //pairwise testing
+		vista.mueveColumna(22, -1, -2);
+		vista.mueveColumna(-2, 2, -2);
+		vista.mueveColumna(2, 2, 2);
+		vista.mueveColumna(2, -2, 2);
+		vista.mueveColumna(-2, -3, -4);
+		
+		assertEquals(2, game.getColsMaxCartas());
+		assertFalse(game.finished());
+		
+		int[] input = {0};
+		game.processInput(input);
+		int[] input1 = {0, 0};
+		game.processInput(input1);
+		int[] input2 = {0, 0, 0};
+		game.processInput(input2);
+		int[] input3 = {1};
+		game.processInput(input3);
+		int[] input4 = {0, 0, 0, 0};
+		game.processInput(input4);
+		
+		tablero.setCartaFuera(new Carta("Oro", 1));
+		vista.mueveCarta(0, 8);
+		tablero.setCartaFuera(new Carta("Basto", 1));
+		vista.mueveCarta(0, 9);
+		tablero.setCartaFuera(new Carta("Copa", 1));
+		vista.mueveCarta(0, 10);
+		tablero.setCartaFuera(new Carta("Espada", 1));
+		vista.mueveCarta(0, 11);
+		vista.mueveCarta(0, 12);
+		
+	}
+	
+	
+	
+	
 }

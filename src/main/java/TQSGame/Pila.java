@@ -29,7 +29,5 @@ public class Pila {
 	
 	public boolean pilaLlena() { return cartas.size() == 12; }
 
-	public String getPalo() {
-		return palo.substring(0, 1);
-	}
+	public String getPalo() { return palo.substring(0, 1); }
 }

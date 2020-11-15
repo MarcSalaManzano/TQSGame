@@ -10,13 +10,19 @@ public class ColumnaTest {
 	public void testAddCard() {
 		Columna columna = new Columna();
 		
+		assertEquals(null, columna.peekCard()); //Columna vacía
+		assertTrue(columna.isVacia()); 
+		
 		assertEquals(0, columna.getNumCartasReveladas()); //Valor de frontera: columna vacia (0 cartas)
 		assertEquals(0, columna.getNumCartasTotal());
 		
 		columna.addCartaOculta(new Carta("Oro", 12));
 		assertEquals(0, columna.getNumCartasReveladas());
 		assertEquals(1, columna.getNumCartasTotal());
-			
+		
+		assertEquals(null, columna.peekCard()); //una columna sin cartas reveladas no debe devolver las ocultas
+		assertFalse(columna.isVacia()); //pero si que se sabe que no está vacía
+		
 		columna.addCartaOculta(new Carta("Copa", 12));
 		assertEquals(0, columna.getNumCartasReveladas());
 		assertEquals(2, columna.getNumCartasTotal());		
@@ -33,6 +39,8 @@ public class ColumnaTest {
 		assertEquals(1, columna.getNumCartasReveladas());
 		assertEquals(5, columna.getNumCartasTotal());		
 		
+		assertEquals("B10", columna.peekCard().toString()); //Columna con cartas reveladas
+		
 		columna.addCartaOculta(new Carta("Basto", 9));
 		assertEquals(1, columna.getNumCartasReveladas());
 		assertEquals(5, columna.getNumCartasTotal());		
@@ -44,6 +52,12 @@ public class ColumnaTest {
 		columna.addCard(new Carta("Copa", 9));
 		assertEquals(2, columna.getNumCartasReveladas());
 		assertEquals(6, columna.getNumCartasTotal());		
+		
+		columna = new Columna();
+		
+		columna.addCard(new Carta("Basto", 5));
+		assertEquals(1, columna.getNumCartasReveladas());
+		assertEquals(1, columna.getNumCartasTotal());		
 		
 	}
 
@@ -57,6 +71,10 @@ public class ColumnaTest {
 		
 		for(int i = 6; i > 1; i--) 
 			columna.addCartaOculta(new Carta("Espada", i));
+		
+		
+		
+		assertNull(columna.pullCard());
 		
 		columna.addCard(new Carta("Basto", 1));
 		
@@ -107,7 +125,7 @@ public class ColumnaTest {
 		
 		assertNull(col.pullColumna(1)); //No se puede sacar una carta con pullCol
 		assertNull(col.pullColumna(3)); //No se puede sacar de una carta oculta
-		
+		assertNull(col.pullColumna(0)); //No se saca ninguna carta.
 		Columna col2 = new Columna();
 
 		col2.addCard(new Carta("Oro", 10));
@@ -132,7 +150,7 @@ public class ColumnaTest {
 		
 		col.addCartaOculta(new Carta("Copa", 12)); //test sobre columna normal
 		
-		col.addCard(new Carta("Oro", 12));
+		col.addCard(new Carta("Oro", 12)); 
 		col2.addCard(new Carta("Basto", 11));
 		col2.addCard(new Carta("Espada", 10));
 		
@@ -154,4 +172,16 @@ public class ColumnaTest {
 		assertEquals(col.pullCard().getPalo(), "Basto");
 		
 	}
+	
+	@Test
+	public void testReAdd() {
+		
+	}
+	
+	@Test
+	public void testCoverage() {
+		
+		
+	}
+	
 }

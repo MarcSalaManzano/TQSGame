@@ -8,13 +8,9 @@ public class Baraja {
 	private Queue<Carta> cartas = new LinkedList<Carta>();
 	private int numCartas = 48;
 	
-	public int getNumCartas() {
-		return numCartas;
-	}
+	public int getNumCartas() { return numCartas; }
 
-	public Baraja() {
-		this.creaBaraja();
-	}
+	public Baraja() { this.creaBaraja(); }
 	
 	public void addCard(Carta carta) {
 		numCartas++;

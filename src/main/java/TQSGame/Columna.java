@@ -58,7 +58,7 @@ public class Columna {
 	}
 	
 	public Carta peekCard() { 
-		if(!cartas.isEmpty()) 
+		if(!cartas.isEmpty() && numCartasReveladas > 0) 
 			return cartas.get(cartas.size()-1);
 		return null;
 		}

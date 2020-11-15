@@ -32,10 +32,10 @@ public class BarajaTest {
 		assertEquals(2, baraja.getNumCartas());
 		
 		baraja.pullCard();
-		carta = baraja.pullCard();
+		carta = baraja.pullCard(); //Última carta de la baraja, valor límite
 		
 		assertEquals(0, baraja.getNumCartas());
-		assertEquals(null, baraja.pullCard());
+		assertEquals(null, baraja.pullCard()); //Una baraja sin cartas
 		
 		
 	}
