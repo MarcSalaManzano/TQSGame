@@ -12,12 +12,14 @@ import TQSGame.*;
  * mover cartas/columnas entre ellas
  */
 
-public class TableroMock /*implements Tablero*/{ //Es
+public class TableroMock implements ITablero{ //Es
 	RandomBaraja baraja = new RandomBaraja();
 	Pila pilaOro = new Pila("Oro");
 	Pila pilaBasto = new Pila("Basto");
 	Carta cartaFuera = null;
 	Columna[] columnas = { new Columna(), new Columna(), new Columna() };
+	
+	public TableroMock() { repartirCartas(); }
 	
 	public void setColumnas(int idCol, Columna col) { columnas[idCol] = col; }
 	
@@ -64,4 +66,16 @@ public class TableroMock /*implements Tablero*/{ //Es
 	public void addCartaColumna(int columna, Carta carta) { columnas[columna].addCard(carta); }
 
 	public void setCartaFuera(Carta cartaMovida) { cartaFuera = cartaMovida;}
+
+	@Override
+	public void reAddCarta(int i, Carta cartaMovida) {
+		columnas[i].addCard(cartaMovida);
+		
+	}
+
+	@Override
+	public boolean pilasLlenas() {
+		// TODO Auto-generated method stub
+		return false;
+	}
 }

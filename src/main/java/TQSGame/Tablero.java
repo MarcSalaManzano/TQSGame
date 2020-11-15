@@ -6,7 +6,7 @@ import java.util.List;
 import Mocks.RandomBaraja;
 
 //public interface Tablero { //De momento es una interficie para poder implementar el mock
-public class Tablero { 
+public class Tablero implements ITablero { 
 	Baraja baraja = new Baraja();
 	Pila[] pilas = {new Pila("Oro"), new Pila("Copa"), new Pila("Espada"), new Pila("Basto")};
 	Carta cartaFuera = null;
@@ -30,18 +30,28 @@ public class Tablero {
 		}
 			
 	}
-	//public void setColumnas(int idCol, Columna col) { columnas[idCol] = col; }
+	public void setColumnas(int idCol, Columna col) {  }
 	
 	public void moverAColumna(int columnaOrigen, int columnaDestino, int cartasAMover) { //Si cartasAMover == 1, se mueve 1 carta sola de un sitio a otro.
-		if((columnaOrigen >= 0 && columnaOrigen <= 7) && (columnaDestino >= 0 && columnaOrigen <= 7))
-		if(cartasAMover == 1) {
-			columnas[columnaDestino].addCard(columnas[columnaOrigen].pullCard());
+		if((columnaOrigen >= 0 && columnaOrigen < 7) && (columnaDestino >= 0 && columnaDestino < 7) && columnaOrigen != columnaDestino) {
+			if(cartasAMover == 1) {
+				columnas[columnaDestino].addCard(columnas[columnaOrigen].pullCard());
+			}
+			else if( cartasAMover > 1 && cartasAMover <= columnas[columnaOrigen].getNumCartasReveladas() ) {
+				Columna col = columnas[columnaOrigen].pullColumna(cartasAMover);
+				if(columnas[columnaDestino].addValido(col))
+					columnas[columnaDestino].addColumna(col);
+				else
+					columnas[columnaOrigen].reAddColumna(col);
+			}
 		}
-		else if( cartasAMover > 1 && cartasAMover <= columnas[columnaOrigen].getNumCartasReveladas() ) 
-			columnas[columnaDestino].addColumna(columnas[columnaOrigen].pullColumna(cartasAMover));
-	} 
+	}
 	
-	public Carta sacaCartaColumna(int columna) { return columnas[columna].pullCard(); }
+	public Carta sacaCartaColumna(int columna) { 
+		if(!columnas[columna].isVacia()) 
+			return columnas[columna].pullCard(); 
+		return null;
+		}
 	
 	public Pila[] getPilas() { return pilas;}
 	
@@ -71,4 +81,9 @@ public class Tablero {
 	public void setCartaFuera(Carta cartaMovida) { cartaFuera = cartaMovida;}
 	
 	public boolean pilasLlenas() { return (pilas[0].pilaLlena() && pilas[1].pilaLlena() && pilas[2].pilaLlena() && pilas[3].pilaLlena()); }
+
+	public void reAddCarta(int colOrigen, Carta carta) {
+		columnas[colOrigen].reAddCarta(carta);
+		
+	}
 }

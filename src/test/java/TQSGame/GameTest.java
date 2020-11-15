@@ -15,10 +15,10 @@ import Mocks.VistaMock;
  */
 public class GameTest { //Testea el MVC mandando señales con VistaMock al controlador Game que tiene un TableroMock para simplificar los tests con una baraja predeterminada semialetaoria.
 
-	//@Test
+	@Test
 	public void testAddCartaAColumna() {
-		//Tablero tablero = new TableroMock();
-		Game game = new Game();
+		ITablero tablero = new TableroMock();
+		Game game = new Game(tablero);
 		VistaMock vista = new VistaMock(game);
 		
 		vista.sacaCarta();
@@ -46,7 +46,7 @@ public class GameTest { //Testea el MVC mandando señales con VistaMock al contro
 		Columna col = new Columna();
 		col.addCard(new Carta("Basto", 11));
 		
-		//tablero.setColumnas(1, col);
+		tablero.setColumnas(1, col);
 		vista.mueveCarta(2,  1);
 		cols = vista.printColumnas();
 		assertEquals(2, cols[0].getNumCartasTotal());
@@ -58,7 +58,7 @@ public class GameTest { //Testea el MVC mandando señales con VistaMock al contro
 		col = new Columna();
 		col.addCard(new Carta("Oro", 1));
 		
-		//tablero.setColumnas(1,  col);
+		tablero.setColumnas(1,  col);
 		
 		Pila[] pilas = vista.printPilas();
 
@@ -72,7 +72,7 @@ public class GameTest { //Testea el MVC mandando señales con VistaMock al contro
 		assertEquals(1, pilas[0].peekCard().getNum());
 		
 		col.addCard(new Carta("Oro", 3));
-		//tablero.setColumnas(1,  col);
+		tablero.setColumnas(1,  col);
 		
 		vista.mueveCarta(2,  8);
 		vista.mueveCarta(2,  0);
@@ -91,7 +91,7 @@ public class GameTest { //Testea el MVC mandando señales con VistaMock al contro
 		assertEquals(1, pilas[0].peekCard().getNum());
 		
 		col.addCard(new Carta("Oro", 2));
-		//tablero.setColumnas(1,  col);
+		tablero.setColumnas(1,  col);
 		
 		vista.mueveCarta(2,  8);
 		
@@ -103,10 +103,10 @@ public class GameTest { //Testea el MVC mandando señales con VistaMock al contro
 		
 		
 	}
-	//@Test
+	@Test
 	public void testAddColumna() {
-		//Tablero tablero = new TableroMock();
-		Game game = new Game();
+		ITablero tablero = new TableroMock();
+		Game game = new Game(tablero);
 		VistaMock vista = new VistaMock(game);
 
 		vista.mueveColumna(2, 1, 3);
@@ -123,7 +123,7 @@ public class GameTest { //Testea el MVC mandando señales con VistaMock al contro
 		col.addCard(new Carta("Basto", 11));
 		col.addCard(new Carta("Basto", 10));
 		
-		//tablero.setColumnas(1, col);
+		tablero.setColumnas(1, col);
 		
 		vista.mueveColumna(2, 1, 2);
 		assertEquals(3, cols[0].getNumCartasTotal());
@@ -132,7 +132,7 @@ public class GameTest { //Testea el MVC mandando señales con VistaMock al contro
 		col = new Columna();
 		
 		col.addCard(new Carta("Oro", 11));
-		//tablero.setColumnas(2, col);
+		tablero.setColumnas(2, col);
 		vista.mueveColumna(3, 1, 0);
 		cols = vista.printColumnas();
 		assertEquals(1, cols[2].getNumCartasTotal());
@@ -145,7 +145,7 @@ public class GameTest { //Testea el MVC mandando señales con VistaMock al contro
 		
 		col = new Columna();
 		col.addCard(new Carta("Oro", 9));
-		//tablero.setColumnas(2, col);
+		tablero.setColumnas(2, col);
 		
 		vista.mueveColumna(3, 1, 1);
 		cols = vista.printColumnas();

@@ -1,13 +1,15 @@
 package TQSGame;
 import Mocks.*;
 public class Game {
-	private Tablero tablero = null;
+	private ITablero tablero = null;
 	private Carta cartaMovida = null;
 	private int origenCartaMovida;
 	
 	public Pila getPila(int i) { return tablero.getPilas()[i]; }
 	
 	public Columna getColumna(int i) { return tablero.getColumnas()[i]; }
+	
+	public Game(ITablero tab) { tablero = tab; }
 	
 	public Game() { this.tablero = new Tablero(); tablero.repartirCartas(); }
 	
@@ -31,28 +33,34 @@ public class Game {
 	public Columna[] getColumnas() { return tablero.getColumnas(); }
 
 	public void addCartaDestino(int idDestino) {
-		if(esValido(idDestino)) {
-			if(idDestino >= 1 && idDestino <= 7) {
-				tablero.addCartaColumna(idDestino - 1, cartaMovida);
-				cartaMovida = null;
-			}
-			else if(idDestino >= 8 && idDestino <= 11) {
-				switch(idDestino) {
-				case 8: tablero.addAPila(cartaMovida,  "Oro");
-				case 9: tablero.addAPila(cartaMovida,  "Copa");
-				case 10: tablero.addAPila(cartaMovida,  "Espada");
-				case 11: tablero.addAPila(cartaMovida,  "Basto");
+		if(cartaMovida != null)
+			if(esValido(idDestino)) {
+				if(idDestino >= 1 && idDestino <= 7) {
+					tablero.addCartaColumna(idDestino - 1, cartaMovida);
+					cartaMovida = null;
 				}
-				cartaMovida = null;
+				else if(idDestino >= 8 && idDestino <= 11) {
+					switch(idDestino) {
+					case 8: tablero.addAPila(cartaMovida,  "Oro");
+					case 9: tablero.addAPila(cartaMovida,  "Copa");
+					case 10: tablero.addAPila(cartaMovida,  "Espada");
+					case 11: tablero.addAPila(cartaMovida,  "Basto");
+					}
+					cartaMovida = null;
+				}
+			} else {
+				deshacerCarta();
 			}
-		} else {
-			deshacerCarta();
-		}
 	}
 	
 	public boolean esValido(int idDestino) {
-		if(idDestino >= 1 && idDestino <= 7)
-			return cartaMovida.getNum() == tablero.getColumnas()[idDestino-1].peekCard().getNum() - 1;
+		if(idDestino >= 1 && idDestino <= 7) {
+			if(tablero.getColumnas()[idDestino-1].isVacia())
+				return true;
+			else if( cartaMovida.getNum() == tablero.getColumnas()[idDestino-1].peekCard().getNum() - 1)
+				return true;
+			return false;
+		}
 		else if (idDestino >= 8 && idDestino <= 11)
 			return tablero.getPilas()[idDestino % 4].cartaValida(cartaMovida);
 			
@@ -60,16 +68,21 @@ public class Game {
 	}
 	
 	public void deshacerCarta() {
-		if(origenCartaMovida >= 1 && origenCartaMovida <= 7) {
-			tablero.addCartaColumna(origenCartaMovida - 1, cartaMovida);
-			cartaMovida = null;
-		} else if(origenCartaMovida == 0) {
-			tablero.setCartaFuera(cartaMovida);
-			cartaMovida = null;
-		}
+		if(cartaMovida != null)
+			if(origenCartaMovida >= 1 && origenCartaMovida <= 7) {
+				tablero.reAddCarta(origenCartaMovida - 1, cartaMovida);
+				cartaMovida = null;
+			} else if(origenCartaMovida == 0) {
+				tablero.setCartaFuera(cartaMovida);
+				cartaMovida = null;
+			}
 	}
 	
-	public void mueveColumna(int colOrigen, int colDestino, int nCartas) { tablero.moverAColumna(colOrigen-1, colDestino-1, nCartas); }
+	public void mueveColumna(int colOrigen, int colDestino, int nCartas) { 
+		if(!tablero.getColumnas()[colOrigen-1].isVacia())
+		
+			tablero.moverAColumna(colOrigen-1, colDestino-1, nCartas); 
+		}
 
 	public boolean getBarajaStatus() { return tablero.getBaraja(); }
 	
@@ -87,7 +100,7 @@ public class Game {
 		return maxCartas;
 	}
 
-	public void processInput(int[] args) {
+	public void processInput(int[] args) { //Este método solo se llama desde la vista.
 		switch(args.length) {
 		case 1: if( args[0] == 1) sacaCarta();
 				break;
