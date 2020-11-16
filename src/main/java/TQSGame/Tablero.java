@@ -9,7 +9,8 @@ public class Tablero implements ITablero {
 	Baraja baraja = new Baraja();
 	Pila[] pilas = {new Pila("Oro"), new Pila("Copa"), new Pila("Espada"), new Pila("Basto")};
 	Carta cartaFuera = null;
-	Columna[] columnas = { new Columna(), new Columna(), new Columna(), new Columna(), new Columna(), new Columna(), new Columna() };
+	Columna[] columnas = { new Columna(), new Columna(), new Columna(), 
+			new Columna(), new Columna(), new Columna(), new Columna() };
 	
 	public void addAPila(Carta carta, String paloPila) {
 		switch(paloPila) {
@@ -31,7 +32,8 @@ public class Tablero implements ITablero {
 	}
 	public void setColumnas(int idCol, Columna col) {  }
 	
-	public void moverAColumna(int columnaOrigen, int columnaDestino, int cartasAMover) { //Si cartasAMover == 1, se mueve 1 carta sola de un sitio a otro.
+	public void moverAColumna(int columnaOrigen, int columnaDestino, int cartasAMover) { 
+		//Si cartasAMover == 1, se mueve 1 carta sola de un sitio a otro.
 		if((columnaOrigen >= 0 && columnaOrigen < 7) && (columnaDestino >= 0 && columnaDestino < 7) 
 				&& columnaOrigen != columnaDestino && !columnas[columnaOrigen].isVacia()) {
 			if(cartasAMover == 1) {
@@ -89,7 +91,8 @@ public class Tablero implements ITablero {
 
 	public void setCartaFuera(Carta cartaMovida) { cartaFuera = cartaMovida;}
 	
-	public boolean pilasLlenas() { return (pilas[0].pilaLlena() && pilas[1].pilaLlena() && pilas[2].pilaLlena() && pilas[3].pilaLlena()); }
+	public boolean pilasLlenas() { return (pilas[0].pilaLlena() && pilas[1].pilaLlena() &&
+			pilas[2].pilaLlena() && pilas[3].pilaLlena()); }
 
 	public void reAddCarta(int colOrigen, Carta carta) {
 		if(colOrigen >= 0 && colOrigen < 7)	

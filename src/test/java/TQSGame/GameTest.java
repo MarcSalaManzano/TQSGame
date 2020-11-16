@@ -109,7 +109,8 @@ public class GameTest { //Testea el MVC mandando señales con VistaMock al contro
 		
 	}
 	@Test
-	public void testAddColumna() {
+	public void testAddColumna() { //test para añadir columnas, se consigue un decision coverage completo. 
+									//Simplemente se testean varios casos al mover columnas.
 		ITablero tablero = new TableroMock();
 		Game game = new Game(tablero);
 		VistaMock vista = new VistaMock(game);
@@ -128,7 +129,7 @@ public class GameTest { //Testea el MVC mandando señales con VistaMock al contro
 		col.addCard(new Carta("Basto", 11));
 		col.addCard(new Carta("Basto", 10));
 		
-		tablero.setColumnas(1, col);
+		tablero.setColumnas(1, col); //este metodo del mock sirve para facilitar el test
 		
 		vista.mueveColumna(2, 1, 2);
 		assertEquals(3, cols[0].getNumCartasTotal());
@@ -173,7 +174,7 @@ public class GameTest { //Testea el MVC mandando señales con VistaMock al contro
 		
 		vista.mueveColumna(3, 1, 2); //intenta mover una columna vacia.
 		
-		vista.mueveCarta(-1, 8);
+		vista.mueveCarta(-1, 8); //intenta mover lugares que no existen
 		vista.mueveCarta(1, -1);
 		
 		vista.mueveColumna(-1, 22, 2); //pairwise testing
@@ -197,7 +198,7 @@ public class GameTest { //Testea el MVC mandando señales con VistaMock al contro
 		int[] input4 = {0, 0, 0, 0};
 		game.processInput(input4);
 		
-		tablero.setCartaFuera(new Carta("Oro", 1));
+		tablero.setCartaFuera(new Carta("Oro", 1)); 
 		vista.mueveCarta(0, 8);
 		tablero.setCartaFuera(new Carta("Basto", 1));
 		vista.mueveCarta(0, 9);
@@ -205,7 +206,7 @@ public class GameTest { //Testea el MVC mandando señales con VistaMock al contro
 		vista.mueveCarta(0, 10);
 		tablero.setCartaFuera(new Carta("Espada", 1));
 		vista.mueveCarta(0, 11);
-		vista.mueveCarta(0, 12);
+		vista.mueveCarta(0, 12); //intenta hacer un movimiento a una pila inexistente
 		
 	}
 	

@@ -103,11 +103,15 @@ public class Columna {
 	public boolean isVacia() { return numCartasTotal == 0; }
 	
 	public boolean addValido(Columna col) {
-		return numCartasReveladas == 0 || (numCartasReveladas > 0 && (col.cartas.get(0).getNum() == this.cartas.get(cartas.size() - 1).getNum() - 1));
+		return numCartasReveladas == 0 || 
+				(numCartasReveladas > 0 && 
+						(col.cartas.get(0).getNum() == this.cartas.get(cartas.size() - 1).getNum() - 1));
 	}
 
 	public boolean addCartaValido(Carta carta) {
-		return numCartasReveladas == 0 || (numCartasReveladas > 0 && (carta.getNum() == this.cartas.get(cartas.size() - 1).getNum() - 1));
+		return numCartasReveladas == 0 
+				|| (numCartasReveladas > 0 && 
+						(carta.getNum() == this.cartas.get(cartas.size() - 1).getNum() - 1));
 	}
 	
 	public void reAddColumna(Columna col) {

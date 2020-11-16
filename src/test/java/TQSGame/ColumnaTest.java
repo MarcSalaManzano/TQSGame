@@ -7,7 +7,7 @@ import org.junit.Test;
 public class ColumnaTest {
 
 	@Test
-	public void testAddCard() {
+	public void testAddCard() { //Usa particiones equivalentes para testear columna
 		Columna columna = new Columna();
 		
 		assertEquals(null, columna.peekCard()); //Columna vacía
@@ -20,11 +20,11 @@ public class ColumnaTest {
 		assertEquals(0, columna.getNumCartasReveladas());
 		assertEquals(1, columna.getNumCartasTotal());
 		
-		assertEquals(null, columna.peekCard()); //una columna sin cartas reveladas no debe devolver las ocultas
+		assertEquals(null, columna.peekCard()); //una columna sin cartas reveladas no debe debolver las ocultas
 		assertFalse(columna.isVacia()); //pero si que se sabe que no está vacía
 		
 		columna.addCartaOculta(new Carta("Copa", 12));
-		assertEquals(0, columna.getNumCartasReveladas());
+		assertEquals(0, columna.getNumCartasReveladas()); //Añade cartas para preparar el test
 		assertEquals(2, columna.getNumCartasTotal());		
 		
 		columna.addCartaOculta(new Carta("Basto", 12));
@@ -57,12 +57,12 @@ public class ColumnaTest {
 		
 		columna.addCard(new Carta("Basto", 5));
 		assertEquals(1, columna.getNumCartasReveladas());
-		assertEquals(1, columna.getNumCartasTotal());		
+		assertEquals(1, columna.getNumCartasTotal());		 //Columna con solo cartas reveladas
 		
 	}
 
 	@Test
-	public void testPullCard() { //Test de columna.pullCard
+	public void testPullCard() { //Test de columna.pullCard por caja negra y caja blanca para aumentar coverage
 		Columna columna = new Columna();
 		
 		
@@ -79,7 +79,7 @@ public class ColumnaTest {
 		columna.addCard(new Carta("Basto", 1));
 		
 		Carta carta = columna.pullCard();
-		assertEquals("Basto", carta.getPalo());
+		assertEquals("Basto", carta.getPalo()); //comprueba que los resultados son los esperados
 		assertEquals(1, carta.getNum());
 		
 		carta = columna.pullCard();
@@ -112,7 +112,7 @@ public class ColumnaTest {
 	
 	
 	@Test
-	public void testPullColumna() {
+	public void testPullColumna() { //Igual que el test anterior pero ahora con columnas enteras
 		Columna col = new Columna();
 		
 		assertNull(col.pullColumna(2)); //columna vacia
@@ -125,7 +125,7 @@ public class ColumnaTest {
 		
 		assertNull(col.pullColumna(1)); //No se puede sacar una carta con pullCol
 		assertNull(col.pullColumna(3)); //No se puede sacar de una carta oculta
-		assertNull(col.pullColumna(0)); //No se saca ninguna carta.
+		assertNull(col.pullColumna(0)); //No se saca ninguna carta
 		Columna col2 = new Columna();
 
 		col2.addCard(new Carta("Oro", 10));
@@ -143,7 +143,7 @@ public class ColumnaTest {
 	}
 	
 	@Test
-	public void testAddColumna() {
+	public void testAddColumna() { //Test añadiendo columna contra otras
 		
 		Columna col = new Columna();
 		Columna col2 = new Columna();
@@ -174,7 +174,7 @@ public class ColumnaTest {
 	}
 	
 	@Test
-	public void testReAdd() {
+	public void testReAdd() { //Test para reañadir cartas o columnas anteriormente extraidas a la baraja, principalmente caja negra
 		Columna col1 = new Columna();
 		Columna col2 = new Columna();
 		
@@ -195,16 +195,20 @@ public class ColumnaTest {
 		assertEquals("O1", col1.peekCard().toString());
 		
 		
-		col1.pullColumna(3);
+		col1.pullColumna(3); //limpia la columna y la deja vacia
 		
 		col1.addCartaOculta(new Carta("Basto", 5));
 		col1.addCard(new Carta("Oro", 2));
 		col1.addCard(new Carta("Oro", 1));
 		col2 = col1.pullColumna(2);
 		
+		assertEquals("B5", col1.peekCard().toString()); //se ha revelado la carta oculta
+		
 		col1.reAddColumna(col2);
 		
-		assertEquals("O1", col1.peekCard().toString());
+		assertEquals("O1", col1.peekCard().toString()); //comprueba que cuando se quitan columnas si es necesario se revela la carta oculta siguiente, 
+														//pero al hacer reAdd se esconde otra vez
+		assertEquals("*", col1.peekCard(0));
 		
 		col1 = new Columna();
 		
@@ -221,7 +225,7 @@ public class ColumnaTest {
 		col1.addCartaOculta(new Carta ("Basto", 5));
 		col1.addCard(new Carta("Oro", 3));
 		carta = col1.pullCard();
-		assertEquals("B5", col1.peekCard().toString());
+		assertEquals("B5", col1.peekCard().toString()); //se vuelve a comprobar que se reocultan cartas pero ahora reañadiendo solo cartas
 		
 		col1.reAddCarta(carta);
 
@@ -229,7 +233,7 @@ public class ColumnaTest {
 	}
 	
 	@Test
-	public void testPeek() {
+	public void testPeek() { //test de caja negra con particiones equivalentes para peek(i)
 		
 		Columna col = new Columna();
 		
@@ -240,7 +244,7 @@ public class ColumnaTest {
 		col.addCard(new Carta("Oro", 7));
 		col.addCard(new Carta("Oro", 6));
 		
-		assertEquals(" ", col.peekCard(-1));
+		assertEquals(" ", col.peekCard(-1));  //los valores límite y frontera para la función
 		assertEquals(" ", col.peekCard(4));
 		assertEquals("*", col.peekCard(0));
 		assertEquals("*", col.peekCard(1));

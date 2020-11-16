@@ -12,16 +12,16 @@ public class BarajaTest {
 
 
 	@Test
-	public void test() {
+	public void test() { //Testea los métodos de Baraja por test de caja negra.
 		Baraja baraja = new Baraja();
 		
 		Carta carta = baraja.pullCard();
 		
-		assertEquals(47, baraja.getNumCartas());
-		assertEquals("Oro", carta.getPalo());
+		assertEquals(47, baraja.getNumCartas()); //comprueba que se ha extraido exitosamente
+		assertEquals("Oro", carta.getPalo()); // comprobar la carta que se saca
 		assertEquals(1, carta.getNum());
-		baraja.addCard(carta);
-		assertEquals(48, baraja.getNumCartas());
+		baraja.addCard(carta);				 //comprueba el añadir carta
+		assertEquals(48, baraja.getNumCartas()); //caja negra, mira que se ha añadido la carta correctamente
 		carta = baraja.pullCard();
 		assertEquals("Oro", carta.getPalo());
 		assertEquals(2, carta.getNum());
