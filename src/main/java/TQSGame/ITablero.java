@@ -1,5 +1,9 @@
 package TQSGame;
-
+/*
+ * 
+ * Esta interficie se usa para poder implementar el TableroMock y testearlo con el controlador 
+ * sin problemas.
+ */
 public interface ITablero {
 	public void addAPila(Carta carta, String paloPila);
 	public void setColumnas(int idCol, Columna col);

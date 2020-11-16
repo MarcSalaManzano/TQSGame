@@ -175,12 +175,77 @@ public class ColumnaTest {
 	
 	@Test
 	public void testReAdd() {
+		Columna col1 = new Columna();
+		Columna col2 = new Columna();
 		
+		col1.addCard(new Carta("Oro", 3));
+		col1.addCard(new Carta("Oro", 2));
+		col1.addCard(new Carta("Oro", 1));
+		
+		col1.reAddColumna(col2); //añadir columna vacia
+		assertEquals("O1", col1.peekCard().toString());
+		
+		col1.reAddColumna(col1); //añadirse a si misma
+		assertEquals("O1", col1.peekCard().toString());
+		
+		col2 = col1.pullColumna(3);
+		assertNull(col1.peekCard());
+		
+		col1.reAddColumna(col2);
+		assertEquals("O1", col1.peekCard().toString());
+		
+		
+		col1.pullColumna(3);
+		
+		col1.addCartaOculta(new Carta("Basto", 5));
+		col1.addCard(new Carta("Oro", 2));
+		col1.addCard(new Carta("Oro", 1));
+		col2 = col1.pullColumna(2);
+		
+		col1.reAddColumna(col2);
+		
+		assertEquals("O1", col1.peekCard().toString());
+		
+		col1 = new Columna();
+		
+		col1.addCard(new Carta("Oro", 2));
+		
+		Carta carta = col1.pullCard();
+		assertNull(col1.peekCard());
+		
+		col1.reAddCarta(carta);
+		
+		assertEquals("O2", col1.peekCard().toString());
+		
+		col1 = new Columna();
+		col1.addCartaOculta(new Carta ("Basto", 5));
+		col1.addCard(new Carta("Oro", 3));
+		carta = col1.pullCard();
+		assertEquals("B5", col1.peekCard().toString());
+		
+		col1.reAddCarta(carta);
+
+		assertEquals("O3", col1.peekCard().toString());
 	}
 	
 	@Test
-	public void testCoverage() {
+	public void testPeek() {
 		
+		Columna col = new Columna();
+		
+		assertEquals(" ", col.peekCard(2));
+		
+		col.addCartaOculta(new Carta("Oro", 9));
+		col.addCartaOculta(new Carta("Oro", 8));
+		col.addCard(new Carta("Oro", 7));
+		col.addCard(new Carta("Oro", 6));
+		
+		assertEquals(" ", col.peekCard(-1));
+		assertEquals(" ", col.peekCard(4));
+		assertEquals("*", col.peekCard(0));
+		assertEquals("*", col.peekCard(1));
+		assertEquals("O7", col.peekCard(2));
+		assertEquals("O6", col.peekCard(3));
 		
 	}
 	

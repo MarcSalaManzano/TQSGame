@@ -18,17 +18,10 @@ public class Columna {
 	}
 	
 	public void addCard(Carta carta) {
-		if(numCartasReveladas == 0) {
+		if(addCartaValido(carta)) {
 			cartas.add(carta);
 			numCartasReveladas++;
 			numCartasTotal++;
-		}
-		else {
-			if(cartas.get(cartas.size()-1).getNum() - 1 == carta.getNum()) {
-				cartas.add(carta);
-				numCartasReveladas++;
-				numCartasTotal++;
-			}
 		}
 	}
 	
@@ -113,11 +106,16 @@ public class Columna {
 		return numCartasReveladas == 0 || (numCartasReveladas > 0 && (col.cartas.get(0).getNum() == this.cartas.get(cartas.size() - 1).getNum() - 1));
 	}
 
+	public boolean addCartaValido(Carta carta) {
+		return numCartasReveladas == 0 || (numCartasReveladas > 0 && (carta.getNum() == this.cartas.get(cartas.size() - 1).getNum() - 1));
+	}
+	
 	public void reAddColumna(Columna col) {
-		if(numCartasReveladas > 0)
-			numCartasReveladas--;
-		addColumna(col);
-		
+		if(!col.isVacia() && col != this) {
+			if(numCartasReveladas > 0)
+				numCartasReveladas--;
+			addColumna(col);
+		}
 	}
 	
 	public void reAddCarta(Carta carta) {

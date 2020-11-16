@@ -6,13 +6,7 @@ import org.junit.Test;
 
 import Mocks.TableroMock;
 import Mocks.VistaMock;
-/* Importante:
- * Este test ha sido implementado y pasado usando un Mock de tablero que utilizaba una baraja semi aleatoria implementada por mi.
- * Ahora mismo no se ejecuta ya que Tablero ya no actua como Interface para que se pueda usar el Mock, y la baraja no es la misma que la que usa el Mock,
- * por lo que este test ahora mismo no se ejecuta porque no lo pasaria. En Github está subido el commit en el que se pasa el test usando el Mock,
- * y para usar este test hay que poner la clase Tablero como Interface y hacer que TableroMock implemente Tablero como interfaz.
- * 
- */
+
 public class GameTest { //Testea el MVC mandando señales con VistaMock al controlador Game que tiene un TableroMock para simplificar los tests con una baraja predeterminada semialetaoria.
 
 	@Test

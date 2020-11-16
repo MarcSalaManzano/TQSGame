@@ -36,16 +36,8 @@ public class Game {
 					cartaMovida = null;
 				}
 				else if(idDestino >= 8 && idDestino <= 11) {
-					switch(idDestino) {
-					case 8: tablero.addAPila(cartaMovida,  "Oro");
-						break;
-					case 9: tablero.addAPila(cartaMovida,  "Copa");
-						break;
-					case 10: tablero.addAPila(cartaMovida,  "Espada");
-						break;
-					case 11: tablero.addAPila(cartaMovida,  "Basto");
-						break;
-					}
+					
+					tablero.addAPila(cartaMovida,  cartaMovida.getPalo());
 					cartaMovida = null;
 				}
 			} else {
