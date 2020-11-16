@@ -8,7 +8,7 @@ import java.util.Scanner;
 import TQSGame.*;
 /*
  * Esta clase será la Vista que se comunica con el usuario. Se encarga de formatar toda la información que imprimir en pantalla
- * y recoger el input del usuario.
+ * y recoger el input del usuario. No tiene ningún test hecho porque sólo interactua por pantalla con el jugador.
  * 
  */
 public class UI {
