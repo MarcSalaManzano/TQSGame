@@ -3,7 +3,7 @@ package TQSGame;
 import java.util.LinkedList;
 import java.util.Queue;
 
-public class Baraja {
+public class Baraja implements BarajaI{
 	
 	private Queue<Carta> cartas = new LinkedList<Carta>();
 	private int numCartas = 48;

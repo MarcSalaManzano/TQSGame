@@ -80,4 +80,10 @@ public class TableroMock implements ITablero{ //Es
 		// TODO Auto-generated method stub
 		return false;
 	}
+
+	@Override
+	public void setBaraja(BarajaI bar) {
+		// TODO Auto-generated method stub
+		
+	}
 }

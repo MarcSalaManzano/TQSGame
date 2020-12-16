@@ -6,7 +6,7 @@ import java.util.List;
 import Mocks.RandomBaraja;
 
 public class Tablero implements ITablero { 
-	Baraja baraja = new Baraja();
+	BarajaI baraja = new Baraja();
 	Pila[] pilas = {new Pila("Oro"), new Pila("Copa"), new Pila("Espada"), new Pila("Basto")};
 	Carta cartaFuera = null;
 	Columna[] columnas = { new Columna(), new Columna(), new Columna(), 
@@ -97,6 +97,12 @@ public class Tablero implements ITablero {
 	public void reAddCarta(int colOrigen, Carta carta) {
 		if(colOrigen >= 0 && colOrigen < 7)	
 			columnas[colOrigen].reAddCarta(carta);
+		
+	}
+
+	@Override
+	public void setBaraja(BarajaI bar) {
+		this.baraja = bar;
 		
 	}
 }

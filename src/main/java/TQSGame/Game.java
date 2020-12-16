@@ -9,6 +9,8 @@ public class Game {
 	
 	public Game() { this.tablero = new Tablero(); tablero.repartirCartas(); }
 	
+	public Game(BarajaI bar) { this.tablero = new Tablero(); tablero.setBaraja(bar); tablero.repartirCartas(); }
+	
 	public void setCartaMovida(int origen) { 
 		if(origen == 0) {
 			cartaMovida = tablero.getCartaFuera();

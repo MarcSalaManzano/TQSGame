@@ -1,3 +1,4 @@
+package UI;
 
 
 import java.util.ArrayList;
@@ -14,9 +15,9 @@ import TQSGame.*;
 public class UI {
 	private Game game;
 	int lastInput = 0;
-	Scanner sc = new Scanner(System.in);
+	ScannerI sc;
 	
-	public UI(Game game) { this.game = game; main(); }
+	public UI(Game game, ScannerI sc) { this.game = game; this.sc = sc; main(); }
 	
 	public void imprimirTutorial() {
 		System.out.println("Bienvenido al juego de Solitario! \n");
@@ -102,7 +103,6 @@ public class UI {
 		while(!game.finished()) {
 			imprimirTablero();
 			getUserInput();
-			
 		}
 		sc.close();
 	}

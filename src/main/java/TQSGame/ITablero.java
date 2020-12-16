@@ -20,4 +20,5 @@ public interface ITablero {
 	public void setCartaFuera(Carta cartaMovida);
 	public void reAddCarta(int i, Carta cartaMovida);
 	public boolean pilasLlenas();
+	public void setBaraja(BarajaI bar);
 }
